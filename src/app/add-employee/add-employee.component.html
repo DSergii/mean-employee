@@ -1,0 +1,27 @@
+<div class="content">
+  <form [formGroup]="userForm" (submit)="addUser()">
+    <mat-form-field class="mat-form-field-outline" appearance="outline">
+      <mat-label>User name</mat-label>
+      <input matInput type="text" formControlName="name">
+    </mat-form-field>
+    <mat-form-field class="mat-form-field-outline" appearance="outline">
+      <mat-label>User email</mat-label>
+      <input matInput type="text" formControlName="email">
+    </mat-form-field>
+    <div class="image-holder">
+      <button mat-raised-button type="button" (click)="pickImage.click()">Pick Image</button>
+      <input type="file" [hidden]="true" #pickImage (change)="onImageSelected($event)">
+      <div class="image-preview">
+        <img *ngIf="imagePreview" [src]="imagePreview" alt="preview">
+	      <div [style]="{'background-image': 'url(' + imagePreview + ')'}"></div>
+      </div>
+    </div>
+    <button
+      mat-raised-button
+      [disabled]="!userForm.valid"
+      type="submit"
+      color="primary">
+      {{ userId ? 'Edit' : 'Add' }}
+    </button>
+  </form>
+</div>

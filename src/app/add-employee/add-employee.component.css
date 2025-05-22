@@ -1,0 +1,29 @@
+.content {
+    padding: 20px;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}
+
+.image-holder {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 22px;
+}
+
+.image-preview {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 1px solid;
+    overflow: hidden;
+}
+
+img {
+    display: block;
+    height: auto;
+    width: 100%;
+}
