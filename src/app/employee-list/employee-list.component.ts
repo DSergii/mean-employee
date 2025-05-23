@@ -9,28 +9,28 @@ import { Router } from '@angular/router';
   styleUrls: ['./employee-list.component.css']
 })
 export class EmployeeListComponent implements OnInit {
-  private readonly userDataService = inject(UserDataService);
-  private readonly router = inject(Router);
+	private readonly userDataService = inject(UserDataService);
+	private readonly router = inject(Router);
 
-  public tableColumns: string[] = ['name', 'email', 'action'];
+	public tableColumns: string[] = ['name', 'email', 'action'];
 
-  public userList: User[] = [];
+	public userList: User[] = [];
 
-  constructor() {
-    this.userDataService.getUsers();
-  }
+    constructor() {
+		this.userDataService.getUsers();
+    }
 
-  ngOnInit(): void {
-    this.userDataService.userList$.subscribe((users: User[]) => this.userList = users);
-  }
+    ngOnInit(): void {
+		this.userDataService.userList$.subscribe((users: User[]) => this.userList = users);
+    }
 
-  public deleteUser(id: string): void {
-    this.userDataService.deleteUser(id);
-  }
+	public deleteUser(id: string): void {
+		this.userDataService.deleteUser(id);
+	}
 
-  public editUser(id: string): void {
-    this.router.navigate(['edit', id])
-  }
+	public editUser(id: string): void {
+		this.router.navigate(['edit', id]).then();
+	}
 
 }
 
