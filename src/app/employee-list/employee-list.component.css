@@ -20,3 +20,22 @@
 button {
     margin: 0 12px;
 }
+
+.holder {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+
+    .image-holder {
+        width: 100px;
+        height: 100px;
+        overflow: hidden;
+        margin-right: 20px;
+
+        img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+    }
+}

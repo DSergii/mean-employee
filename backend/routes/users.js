@@ -31,7 +31,7 @@ router.post('', multer({storage: imageStore}).single('image'), (req, res) => {
   const user = new User({
     name: req.body.name,
     email: req.body.email,
-    imagePath: url + "/images/" + req.file.filename
+    imagePath: url + "/backend/images/" + req.file.filename
   });
   user.save()
     .then((response) => {
@@ -67,17 +67,16 @@ router.get('/:id', (req, res) => {
 })
 
 router.put('', multer({ storage: imageStore }).single("image"), (req, res) => {
-  const filter = req.body.id;
   let imagePath = req.body.imagePath;
   const { name, email } = req.body;
   if (req.file) {
     const url = req.protocol + "://" + req.get("host");
-    imagePath = url + "/images/" + req.file.filename
+    imagePath = url + "/backend/images/" + req.file.filename
   }
   const user = new User({
     _id: req.body.id,
-    name: req.body.name,
-    email: req.body.email,
+    name: name,
+    email: email,
     imagePath
   })
   User.updateOne({_id: req.body.id}, user)

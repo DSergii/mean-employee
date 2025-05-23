@@ -15,23 +15,28 @@ import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { RouterModule } from '@angular/router';
 
 const routes = [
-  { path: '', component: EmployeeListComponent },
-  { path: 'add', component: AddEmployeeComponent },
-  { path: 'edit/:id', component: AddEmployeeComponent },
+    { path: '', component: EmployeeListComponent },
+    { path: 'add', component: AddEmployeeComponent },
+    { path: 'edit/:id', component: AddEmployeeComponent },
 ]
 
-@NgModule({ declarations: [
+@NgModule({
+    declarations: [
         AppComponent,
         HeaderComponent,
         AddEmployeeComponent,
         EmployeeListComponent
     ],
-    bootstrap: [AppComponent], imports: [BrowserModule,
+    bootstrap: [AppComponent],
+    imports: [BrowserModule,
         RouterModule.forRoot(routes),
         BrowserAnimationsModule,
         MatToolbarModule,
         MatTableModule,
         MatButtonModule,
         MatInputModule,
-        ReactiveFormsModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
+        ReactiveFormsModule
+    ],
+    providers: [provideHttpClient(withInterceptorsFromDi())]
+})
 export class AppModule { }

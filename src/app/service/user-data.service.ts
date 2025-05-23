@@ -39,7 +39,7 @@ export class UserDataService {
 
 	deleteUser(id: string): void {
 		this.userService.deleteUser(id)
-	    .subscribe((data: User) => {
+	    .subscribe(() => {
 			const updatedUsers = this.userList.filter(user => user.id !== id)
 			this.setUsers(updatedUsers);
 	    });
@@ -59,25 +59,26 @@ export class UserDataService {
 	        )
 	}
 
-	updateUser(user: Partial<User>, image: File | string): void {
+	updateUser(user: Partial<User>, image: File): void {
 		let userData: User | FormData;
-		if (typeof image === 'object') {
-			userData = new FormData();
-			userData.append('id', user.id);
-			userData.append('name', user.name);
-			userData.append('email', user.email);
-			userData.append('image', image, user.name);
-		} else {
-			const { id, name, email } = user;
-			userData = {
-				id,
-				name,
-				email,
-				imagePath: image
-			};
-		}
-		this.userService.updateUser(user).subscribe((userData) => {
-		  console.log('Update user ::: ', user);
+		console.log(user);
+		// if (typeof image === 'object') {
+		userData = new FormData();
+		userData.append('id', user.id);
+		userData.append('name', user.name);
+		userData.append('email', user.email);
+		userData.append('image', image, user.name);
+		// } else {
+		// 	const { id, name, email } = user;
+		// 	userData = {
+		// 		id,
+		// 		name,
+		// 		email,
+		// 		imagePath: image
+		// 	};
+		// }
+		this.userService.updateUser(userData).subscribe((userData) => {
+		  console.log('Update user ::: ', userData);
 		})
 	}
 }

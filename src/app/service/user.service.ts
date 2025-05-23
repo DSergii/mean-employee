@@ -30,7 +30,7 @@ export class UserService {
         return this.http.post<User>(`${this.API}${this.path}/user`, userData);
     }
 
-    updateUser(user: Partial<User>): Observable<User> {
+    updateUser(user: Partial<User | FormData>): Observable<User> {
         return this.http.put<User>(`${this.API}${this.path}/user`, user);
     }
 
