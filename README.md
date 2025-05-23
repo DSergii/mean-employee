@@ -1,2 +1,3 @@
-Run server node server.js
-Run frontend ng serve
+> Mongo Express Angular Node 
+## Run application
+npm run start:app
