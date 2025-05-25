@@ -1,5 +1,6 @@
 const express = require('express');
 const multer = require('multer');
+const fs = require('fs')
 
 const router = express.Router();
 const User = require('../models/user');
@@ -21,7 +22,7 @@ const imageStore = multer.diskStorage({
   filename: (req, file, cb) => {
     const name = file.originalname.toLowerCase().split(' ').join('-');
     const ext = MIME_TYPE_MAP[file.mimetype];
-    cb(null, name + '-' + Date.now() + '.' + ext);
+    cb(null, name + '-' + req.body.email + '.' + ext);
   }
 })
 // sdrozd psw - XpXe3XxShO3WEZLD
@@ -47,23 +48,25 @@ router.get('', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
-  User.deleteOne({_id: req.params.id})
-    .then((response) => {
-      res.status(200).json(response)
-    })
-    .catch((error) => {
-      res.status(404).json({ message: 'Not found', error })
-    });
+  console.log('req ', req.query);
+    User.deleteOne({_id: req.params.id})
+      .then((response) => {
+        res.status(200).json(response);
+        // this.deleteUserImage(req.query);
+      })
+      .catch((error) => {
+        res.status(404).json({ message: 'Not found', error })
+      });
 });
 
 router.get('/:id', (req, res) => {
-  User.findById(req.params.id)
-    .then((response) => {
-      res.status(200).json(response)
-    })
-    .catch((error) => {
-      res.status(404).json({ message: 'Not found', error })
-    });
+    User.findById(req.params.id)
+        .then((response) => {
+            res.status(200).json(response)
+        })
+        .catch((error) => {
+            res.status(404).json({ message: 'Not found', error })
+        });
 })
 
 router.put('', multer({ storage: imageStore }).single("image"), (req, res) => {
@@ -94,6 +97,14 @@ function getUsers(response) {
     .then(documents => {
       response.status(200).json(documents);
     });
+}
+
+function deleteUserImage(path) {
+  fs.unlink(path, (err) => {
+    if (err) {
+      console.error("Image not found");
+    }
+  })
 }
 
 module.exports = router;

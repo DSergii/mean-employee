@@ -4,6 +4,9 @@ const mongoose = require('mongoose');
 const userRoutes = require('./routes/users');
 
 const app = express();
+
+// Function to serve all static files
+// inside public directory.
 app.use(express.static('src'));
 app.use('/backend/images', express.static('backend/images'));
 
