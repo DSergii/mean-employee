@@ -1,12 +1,33 @@
-import { Component } from '@angular/core';
+import { Component, inject, ViewEncapsulation } from '@angular/core';
+import { loginAnimation } from "../animation";
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
+import { MatInputModule } from "@angular/material/input";
+import { MatButtonModule } from "@angular/material/button";
 
 @Component({
     selector: 'app-login',
     standalone: true,
-    imports: [],
+    imports: [
+        ReactiveFormsModule,
+        MatButtonModule,
+        MatInputModule,
+    ],
     templateUrl: './login.component.html',
-    styleUrl: './login.component.css'
+    styleUrl: './login.component.css',
+    animations: [loginAnimation],
+    encapsulation: ViewEncapsulation.None
 })
 export class LoginComponent {
+
+    private fb = inject(FormBuilder);
+
+    loginForm: FormGroup = this.fb.group({
+        email: ['', Validators.required],
+        password: ['', Validators.required]
+    });
+
+    signIn(): void {
+
+    }
 
 }

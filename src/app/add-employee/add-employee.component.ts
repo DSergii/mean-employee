@@ -1,14 +1,31 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, inject, OnInit, ViewEncapsulation } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserDataService } from '../service/user-data.service';
 import { ActivatedRoute } from '@angular/router';
 import { User } from '../service/user.interface';
 import { mimeTypeValidator } from './mime-type.validator';
+import { BrowserModule } from "@angular/platform-browser";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { MatToolbarModule } from "@angular/material/toolbar";
+import { MatTableModule } from "@angular/material/table";
+import { MatButtonModule } from "@angular/material/button";
+import { MatInputModule } from "@angular/material/input";
 
 @Component({
-  selector: 'app-add-employee',
-  templateUrl: './add-employee.component.html',
-  styleUrls: ['./add-employee.component.css']
+    selector: 'app-add-employee',
+    templateUrl: './add-employee.component.html',
+    styleUrls: ['./add-employee.component.css'],
+	standalone: true,
+	imports: [
+		BrowserModule,
+		BrowserAnimationsModule,
+		MatToolbarModule,
+		MatTableModule,
+		MatButtonModule,
+		MatInputModule,
+		ReactiveFormsModule
+	],
+	encapsulation: ViewEncapsulation.None
 })
 export class AddEmployeeComponent implements OnInit {
   private readonly userDataService = inject(UserDataService);

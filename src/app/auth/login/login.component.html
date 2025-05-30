@@ -1,1 +1,28 @@
-<p>login works!</p>
+<div class="auth-holder" [@loginAnimation]>
+	<div class="form-holder">
+		<form [formGroup]="loginForm" (ngSubmit)="signIn()">
+			<div class="form-container">
+				<div class="form-element">
+					<mat-form-field appearance="outline">
+						<mat-label>Email</mat-label>
+						<input matInput email formControlName="email">
+					</mat-form-field>
+				</div>
+				<div class="form-element">
+					<mat-form-field appearance="outline">
+						<mat-label>Password</mat-label>
+						<input matInput [type]="'password'" formControlName="password">
+					</mat-form-field>
+				</div>
+				<div class="action-box">
+					<button
+						mat-flat-button
+						class="btn login-btn"
+						type="submit"
+						color="primary"
+						[disabled]="!loginForm.valid">Log in</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
