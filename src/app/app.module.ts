@@ -7,6 +7,7 @@ import { AppRoutingModule } from "./routing.module";
 import { BrowserModule } from "@angular/platform-browser";
 import { LoginComponent } from "./auth/login/login.component";
 import { RouterModule } from "@angular/router";
+import { AuthService } from "./service/auth.service";
 
 @NgModule({
     declarations: [
@@ -19,6 +20,9 @@ import { RouterModule } from "@angular/router";
         LoginComponent,
         AppRoutingModule
     ],
-    providers: [provideHttpClient(withInterceptorsFromDi())]
+    providers: [
+        AuthService,
+        provideHttpClient(withInterceptorsFromDi())
+    ]
 })
 export class AppModule { }

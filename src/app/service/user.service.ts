@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { MongoUser, User } from './user.interface';
@@ -8,18 +8,16 @@ import { MongoUser, User } from './user.interface';
 })
 export class UserService {
     private API = 'http://localhost:3000';
-    private path = '/api';
+    private path = '/api/user';
 
-    constructor(
-        private http: HttpClient
-    ) { }
+    private http =  inject(HttpClient);
 
     getUsers(): Observable<MongoUser[]> {
-        return this.http.get<MongoUser[]>(`${this.API}${this.path}/user`);
+        return this.http.get<MongoUser[]>(`${this.API}${this.path}`);
     }
 
     getUserById(id: string): Observable<MongoUser> {
-        return this.http.get<MongoUser>(`${this.API}${this.path}/user/${id}`);
+        return this.http.get<MongoUser>(`${this.API}${this.path}/${id}`);
     }
 
     addUser(user: Partial<User>, image: File): Observable<User> {
@@ -27,14 +25,14 @@ export class UserService {
         userData.append('name', user.name);
         userData.append('email', user.email);
         userData.append('image', image, user.name);
-        return this.http.post<User>(`${this.API}${this.path}/user`, userData);
+        return this.http.post<User>(`${this.API}${this.path}`, userData);
     }
 
     updateUser(user: Partial<User | FormData>): Observable<User> {
-        return this.http.put<User>(`${this.API}${this.path}/user`, user);
+        return this.http.put<User>(`${this.API}${this.path}`, user);
     }
 
     deleteUser(id: string): Observable<any> {
-        return this.http.delete<any>(`${this.API}${this.path}/user/${id}`)
+        return this.http.delete<any>(`${this.API}${this.path}/${id}`)
     }
 }
