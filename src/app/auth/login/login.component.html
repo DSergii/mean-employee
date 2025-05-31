@@ -1,28 +1,35 @@
 <div class="auth-holder" [@loginAnimation]>
 	<div class="form-holder">
-		<form [formGroup]="loginForm" (ngSubmit)="signIn()">
-			<div class="form-container">
-				<div class="form-element">
-					<mat-form-field appearance="outline">
-						<mat-label>Email</mat-label>
-						<input matInput email formControlName="email">
-					</mat-form-field>
+		@if (isLogin) {
+			<form [formGroup]="loginForm" (ngSubmit)="signIn()">
+				<h2 class="auth-title">Log In</h2>
+				<div class="form-container">
+					<div class="form-element">
+						<mat-form-field appearance="outline">
+							<mat-label>Email</mat-label>
+							<input matInput email formControlName="email">
+						</mat-form-field>
+					</div>
+					<div class="form-element">
+						<mat-form-field appearance="outline">
+							<mat-label>Password</mat-label>
+							<input matInput [type]="'password'" formControlName="password">
+						</mat-form-field>
+					</div>
+					<div class="action-box">
+						<button
+							mat-flat-button
+							class="btn login-btn"
+							type="submit"
+							color="primary"
+							[disabled]="!loginForm.valid">Log in
+						</button>
+						<button mat-button type="button" (click)="isLogin = !isLogin">Let's to Sign Up</button>
+					</div>
 				</div>
-				<div class="form-element">
-					<mat-form-field appearance="outline">
-						<mat-label>Password</mat-label>
-						<input matInput [type]="'password'" formControlName="password">
-					</mat-form-field>
-				</div>
-				<div class="action-box">
-					<button
-						mat-flat-button
-						class="btn login-btn"
-						type="submit"
-						color="primary"
-						[disabled]="!loginForm.valid">Log in</button>
-				</div>
-			</div>
-		</form>
+			</form>
+		} @else {
+			<app-signup (backToLogin)="isLogin = $event"></app-signup>
+		}
 	</div>
 </div>

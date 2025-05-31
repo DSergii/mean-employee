@@ -3,6 +3,7 @@ import { loginAnimation } from "../animation";
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
+import { SignupComponent } from "../signup/signup.component";
 
 @Component({
     selector: 'app-login',
@@ -11,6 +12,7 @@ import { MatButtonModule } from "@angular/material/button";
         ReactiveFormsModule,
         MatButtonModule,
         MatInputModule,
+        SignupComponent
     ],
     templateUrl: './login.component.html',
     styleUrl: './login.component.css',
@@ -18,6 +20,7 @@ import { MatButtonModule } from "@angular/material/button";
     encapsulation: ViewEncapsulation.None
 })
 export class LoginComponent {
+    isLogin = true;
 
     private fb = inject(FormBuilder);
 
