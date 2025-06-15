@@ -1,14 +1,14 @@
 import { ActivatedRouteSnapshot, CanActivate, GuardResult, MaybeAsync, RouterStateSnapshot } from "@angular/router";
-import { Injectable } from "@angular/core";
+import { inject, Injectable } from "@angular/core";
 
-
-@Injectable()
+@Injectable({
+	providedIn: "root",
+})
 export class AuthGuard implements CanActivate {
-	constructor(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-
-	}
+	private readonly route =  inject(ActivatedRouteSnapshot);
+	private readonly state = inject(RouterStateSnapshot);
 
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): any {
-		return false;
+		return true;
 	}
 }
