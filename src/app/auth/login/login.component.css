@@ -1,9 +1,10 @@
 .auth-holder {
-    width: 480px;
-    height: 500px;
+    width: 420px;
+    height: 480px;
     box-sizing: border-box;
     background-color: #fff;
-    /*border-top: 4px solid #E1000F;*/
+    border-radius: 12px;
+    background: linear-gradient(0deg, rgb(198 254 255) 0%, rgb(255 227 0) 100%);
 }
 
 .form-holder {
@@ -25,7 +26,7 @@
 }
 
 .form-element {
-    margin-bottom: 36px;
+    margin-bottom: 20px;
     position: relative;
 }
 
@@ -58,6 +59,20 @@ input {
     margin-top: auto;
 }
 
+.action-box button {
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.mat-mdc-unelevated-button {
+    height: auto !important;
+    padding: 12px !important;
+}
+
+/*.mdc-button {*/
+/*    height: auto;*/
+/*}*/
+
 .login-btn {
     min-width: 176px;
     display: inline-block;
@@ -65,10 +80,10 @@ input {
     cursor: pointer;
 }
 
-.mdc-button {
-    height: 60px !important;
-}
+/*.mdc-button {*/
+/*    height: 60px !important;*/
+/*}*/
 
-.mdc-button__label {
-    font-size: 24px;
-}
+/*.mdc-button__label {*/
+/*    font-size: 24px;*/
+/*}*/

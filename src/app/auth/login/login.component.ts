@@ -1,4 +1,4 @@
-import { Component, inject, ViewEncapsulation } from '@angular/core';
+import { Component, HostBinding, inject, ViewEncapsulation } from '@angular/core';
 import { loginAnimation } from "../animation";
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { MatInputModule } from "@angular/material/input";
@@ -20,6 +20,8 @@ import { SignupComponent } from "../signup/signup.component";
     encapsulation: ViewEncapsulation.None
 })
 export class LoginComponent {
+    @HostBinding('class.login-holder') hostClass = true;
+
     isLogin = true;
 
     private fb = inject(FormBuilder);

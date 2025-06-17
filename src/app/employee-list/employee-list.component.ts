@@ -8,6 +8,7 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatTableModule } from "@angular/material/table";
 import { MatButtonModule } from "@angular/material/button";
 import { MatInputModule } from "@angular/material/input";
+import { CommonModule } from "@angular/common";
 
 @Component({
     selector: 'app-employee-list',
@@ -15,8 +16,7 @@ import { MatInputModule } from "@angular/material/input";
     styleUrls: ['./employee-list.component.css'],
 	standalone: true,
 	imports: [
-		BrowserModule,
-		BrowserAnimationsModule,
+		CommonModule,
 		MatToolbarModule,
 		MatTableModule,
 		MatButtonModule,

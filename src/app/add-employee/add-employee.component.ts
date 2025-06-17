@@ -10,6 +10,7 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatTableModule } from "@angular/material/table";
 import { MatButtonModule } from "@angular/material/button";
 import { MatInputModule } from "@angular/material/input";
+import { CommonModule } from "@angular/common";
 
 @Component({
     selector: 'app-add-employee',
@@ -17,8 +18,7 @@ import { MatInputModule } from "@angular/material/input";
     styleUrls: ['./add-employee.component.css'],
 	standalone: true,
 	imports: [
-		BrowserModule,
-		BrowserAnimationsModule,
+		CommonModule,
 		MatToolbarModule,
 		MatTableModule,
 		MatButtonModule,
@@ -28,22 +28,22 @@ import { MatInputModule } from "@angular/material/input";
 	encapsulation: ViewEncapsulation.None
 })
 export class AddEmployeeComponent implements OnInit {
-  private readonly userDataService = inject(UserDataService);
-  private readonly activeRouter = inject(ActivatedRoute);
+	private readonly userDataService = inject(UserDataService);
+    private readonly activeRouter = inject(ActivatedRoute);
 
-  public userId = '';
-  public imagePreview: string;
+    public userId = '';
+    public imagePreview: string;
 
-  public ngOnInit(): void {
-	this.userId = this.activeRouter.snapshot.paramMap.get('id');
-	if (this.userId) {
-	  this.userDataService.getUserById(this.userId)
-		.subscribe((user: User) => {
-		  this.userForm.setValue({ name: user.name, email: user.email, image: user.imagePath });
-		  this.imagePreview = this.userForm.value.image;
-		});
+	public ngOnInit(): void {
+		this.userId = this.activeRouter.snapshot.paramMap.get('id');
+		if (this.userId) {
+	        this.userDataService.getUserById(this.userId)
+			.subscribe((user: User) => {
+		        this.userForm.setValue({ name: user.name, email: user.email, image: user.imagePath });
+		        this.imagePreview = this.userForm.value.image;
+			});
+		}
 	}
-  }
 
   public userForm = new FormGroup({
 	name: new FormControl('', [Validators.required]),
