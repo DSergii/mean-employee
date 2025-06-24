@@ -13,4 +13,8 @@ export class AuthService {
 	createUser(body: {email: string, password: string}): Observable<AuthResponseModel> {
 		return this.http.post<AuthResponseModel>(`${this.API}${this.path}/signup`, body);
 	}
+
+	login(body: {email: string, password: string}): Observable<string> {
+		return this.http.post<string>(`${this.API}${this.path}/login`, body);
+	}
 }

@@ -1,6 +1,7 @@
 const express = require('express');
 const multer = require('multer');
-const fs = require('fs')
+const fs = require('fs');
+const authGuard = require('../middleware/auth-guard');
 
 const router = express.Router();
 const User = require('../models/user');
@@ -27,7 +28,7 @@ const imageStore = multer.diskStorage({
 })
 // sdrozd psw - XpXe3XxShO3WEZLD
 
-router.post('', multer({storage: imageStore}).single('image'), (req, res) => {
+router.post('', authGuard, multer({storage: imageStore}).single('image'), (req, res) => {
   const url = req.protocol + "://" + req.get("host");
   const user = new User({
     name: req.body.name,
@@ -47,7 +48,7 @@ router.get('', (req, res) => {
   getUsers(res);
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', authGuard, (req, res) => {
   console.log('req ', req.query);
     User.deleteOne({_id: req.params.id})
       .then((response) => {

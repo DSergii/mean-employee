@@ -5,12 +5,7 @@ import { MatInputModule } from "@angular/material/input";
 import { AuthService } from "../../service/auth.service";
 import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
 import { AuthResponseModel } from "../auth.model";
-
-const enum SnackBarConfig {
-    VERTICAL = 'top',
-    HORIZONTAL = 'center',
-    DURATION = 5 * 1000 // 3 sec
-}
+import { SnackbarService } from "../snackbar.service";
 
 @Component({
     selector: 'app-signup',
@@ -32,9 +27,9 @@ export class SignupComponent {
 
     @Output() backToLogin = new EventEmitter<boolean>();
 
-    private authService = inject(AuthService);
-    private snackBar = inject(MatSnackBar);
-    private fb = inject(FormBuilder);
+    private readonly authService = inject(AuthService);
+    private readonly fb = inject(FormBuilder);
+    private readonly snackbar = inject(SnackbarService);
 
     signupForm: FormGroup = this.fb.group({
         email: ['', Validators.required],
@@ -42,21 +37,12 @@ export class SignupComponent {
     });
 
     signIn(): void {
-        console.log('Value ::: ', this.signupForm.value);
         this.authService.createUser(this.signupForm.value)
             .subscribe(
                 (response: AuthResponseModel) => {
-                    this.showSnackbar(response.message)
+                    this.snackbar.showSnackbar(response.message)
             }, (error) => {
-                this.showSnackbar(error.error.error.message)
+                this.snackbar.showSnackbar(error.error.error.message)
             });
-    }
-
-    showSnackbar(message: string): void {
-        this.snackBar.open(message, 'X', {
-            duration: SnackBarConfig.DURATION as number,
-            horizontalPosition: SnackBarConfig.HORIZONTAL,
-            verticalPosition: SnackBarConfig.VERTICAL
-        });
     }
 }

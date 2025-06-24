@@ -4,6 +4,9 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angula
 import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
 import { SignupComponent } from "../signup/signup.component";
+import { AuthService } from "../../service/auth.service";
+import { SnackbarService } from "../snackbar.service";
+import { CookiesService } from "../cookies.service";
 
 @Component({
     selector: 'app-login',
@@ -24,7 +27,10 @@ export class LoginComponent {
 
     isLogin = true;
 
-    private fb = inject(FormBuilder);
+    private readonly authService = inject(AuthService);
+    private readonly fb = inject(FormBuilder);
+    private readonly snackbar = inject(SnackbarService);
+    private readonly cookiesService = inject(CookiesService);
 
     loginForm: FormGroup = this.fb.group({
         email: ['', Validators.required],
@@ -32,7 +38,14 @@ export class LoginComponent {
     });
 
     signIn(): void {
-
+        console.log('LO~GIN: ', this.loginForm.value )
+        this.authService.login(this.loginForm.value)
+            .subscribe(result => {
+                console.log(result);
+                this.cookiesService.setCookie('token', result, 60*60*100);
+            }, error => {
+                this.snackbar.showSnackbar(error.error.error)
+            });
     }
 
 }
