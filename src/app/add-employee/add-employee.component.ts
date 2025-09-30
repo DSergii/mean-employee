@@ -4,8 +4,6 @@ import { UserDataService } from '../service/user-data.service';
 import { ActivatedRoute } from '@angular/router';
 import { User } from '../service/user.interface';
 import { mimeTypeValidator } from './mime-type.validator';
-import { BrowserModule } from "@angular/platform-browser";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatTableModule } from "@angular/material/table";
 import { MatButtonModule } from "@angular/material/button";
@@ -45,37 +43,37 @@ export class AddEmployeeComponent implements OnInit {
 		}
 	}
 
-  public userForm = new FormGroup({
-	name: new FormControl('', [Validators.required]),
-	email: new FormControl('', [Validators.required]),
-	image: new FormControl(null, {
-	  validators: [Validators.required],
-	  asyncValidators: mimeTypeValidator
-	})
-  });
+    public userForm = new FormGroup({
+		name: new FormControl('', [Validators.required]),
+		email: new FormControl('', [Validators.required]),
+		image: new FormControl(null, {
+	    validators: [Validators.required]
+		})
+    });
 
-  public addUser(): void {
-	const user = this.userForm.getRawValue();
-	const image = this.userForm.get('image').value;
-	  console.log({...user, id: this.userId}, image)
-	if(this.userId) {
-	  this.userDataService.updateUser({...user, id: this.userId}, image);
-	  return;
-	}
+    public addUser(): void {
+		const user = this.userForm.getRawValue();
+		const image = this.userForm.get('image').value;
+	    console.log({...user, id: this.userId}, image)
+		if(this.userId) {
+		    this.userDataService.updateUser({...user, id: this.userId}, image);
+		    return;
+		}
 
-	this.userDataService.addUser(user, image);
-	this.userForm.reset();
-  }
+		this.userDataService.addUser(user, image);
+		this.imagePreview = '';
+		this.userForm.reset();
+    }
 
-  public onImageSelected(event: Event): void {
-	const file = (event.target as HTMLInputElement).files[0];
-	this.userForm.patchValue({image: file});
-	this.userForm.get('image').updateValueAndValidity();
-	const reader = new FileReader();
-	reader.onload = () => {
-	  this.imagePreview = reader.result as string;
-	}
-	reader.readAsDataURL(file);
-  }
+    public onImageSelected(event: Event): void {
+		const image = (event.target as HTMLInputElement).files[0];
+		this.userForm.get('image').setValue(image);
+		const reader = new FileReader();
+		reader.onload = () => {
+	        this.imagePreview = reader.result as string;
+			this.userForm.get('image').updateValueAndValidity();
+		}
+		reader.readAsDataURL(image);
+    }
 
 }

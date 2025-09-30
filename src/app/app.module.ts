@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { CoreComponent } from "./core/core.component";
 import { AppRoutingModule } from "./routing.module";
 import { BrowserModule } from "@angular/platform-browser";
@@ -11,6 +11,7 @@ import { AuthService } from "./service/auth.service";
 import { AuthGuard } from "./core/guard/auth.guard";
 import { CommonModule } from "@angular/common";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { AuthInterceptor } from "./auth/auth-interceptor";
 
 @NgModule({
     declarations: [
@@ -28,7 +29,12 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     providers: [
         AuthService,
         // AuthGuard,
-        provideHttpClient(withInterceptorsFromDi())
+        provideHttpClient(withInterceptorsFromDi()),
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true
+        }
     ]
 })
 export class AppModule { }

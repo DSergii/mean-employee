@@ -7,6 +7,7 @@ import {
 	RouterStateSnapshot
 } from "@angular/router";
 import { inject, Injectable } from "@angular/core";
+import { CookiesService } from "../../auth/cookies.service";
 
 @Injectable({
 	providedIn: "root",
@@ -14,8 +15,10 @@ import { inject, Injectable } from "@angular/core";
 export class AuthGuard implements CanActivate {
 	// private readonly route =  inject(ActivatedRouteSnapshot);
 	// private readonly state = inject(RouterStateSnapshot);
+	private readonly cookiesService = inject(CookiesService);
 
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): any {
-		return true;
+		const token = this.cookiesService.getCookie();
+		return !!token;
 	}
 }

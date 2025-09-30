@@ -28,8 +28,7 @@ app-root {
     justify-content: center;
     height: 100%;
     padding-top: 60px;
-    background: #020024;
-    background: linear-gradient(180deg,rgba(2, 0, 36, 1) 70%, rgba(87, 77, 49, .9) 82%, rgba(255, 247, 0, .9) 99%)
+    background: #020024 linear-gradient(180deg,rgba(2, 0, 36, 1) 70%, rgba(87, 77, 49, .9) 82%, rgba(255, 247, 0, .9) 99%)
 }
 /*app-login {*/
 /*    */

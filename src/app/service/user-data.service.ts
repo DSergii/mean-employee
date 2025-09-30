@@ -2,12 +2,14 @@ import { inject, Injectable } from '@angular/core';
 import { map, Observable, Subject } from 'rxjs';
 import { User } from './user.interface';
 import { UserService } from './user.service';
+import { SnackbarService } from "../auth/snackbar.service";
 
 @Injectable({
 	providedIn: 'root'
 })
 export class UserDataService {
 	private readonly userService = inject(UserService);
+	private readonly snackbar = inject(SnackbarService);
 
 	private userList: User[] = [];
 	private _userList$ = new Subject();
@@ -30,7 +32,11 @@ export class UserDataService {
 				map((data) => data.map(
 			        user => ({id: user._id, name: user.name, email: user.email, imagePath: user.imagePath})
 				))
-			).subscribe((data: User[]) => this.setUsers(data))
+			).subscribe((data: User[]) => {
+				this.setUsers(data)
+			}, error => {
+				this.snackbar.showSnackbar(error.error.message)
+			})
 	}
 
 	addUser(user: Partial<User>, image: File): void {

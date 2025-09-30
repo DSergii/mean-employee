@@ -44,7 +44,7 @@ router.post('', authGuard, multer({storage: imageStore}).single('image'), (req, 
     })
 })
 
-router.get('', (req, res) => {
+router.get('', authGuard, (req, res) => {
   getUsers(res);
 });
 

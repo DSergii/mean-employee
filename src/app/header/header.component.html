@@ -1,6 +1,7 @@
 <mat-toolbar color="primary">
-  MEAN
-  <span class="example-spacer"></span>
-  <a routerLink="/employee">Employee List</a>
-  <a routerLink="/employee/add">Add Employee</a>
+    MEAN
+    <span class="example-spacer"></span>
+    <a mat-stroked-button routerLink="/employee">Employee List</a>
+    <a mat-stroked-button  routerLink="/employee/add">Add Employee</a>
+	<button mat-stroked-button (click)="logout()">LogOut</button>
 </mat-toolbar>

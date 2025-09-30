@@ -2,9 +2,8 @@
     width: 420px;
     height: 480px;
     box-sizing: border-box;
-    background-color: #fff;
     border-radius: 12px;
-    background: linear-gradient(0deg, rgb(198 254 255) 0%, rgb(255 227 0) 100%);
+    background: #fff linear-gradient(0deg, rgb(198 254 255) 0%, rgb(255 227 0) 100%);
 }
 
 .form-holder {
