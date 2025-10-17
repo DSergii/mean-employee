@@ -19,7 +19,6 @@ export class AuthGuard implements CanActivate {
 
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): any {
 		const token = this.cookiesService.getCookie();
-		console.log('token ->>> ', token)
 		return !!token;
 	}
 }

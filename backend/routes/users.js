@@ -49,7 +49,6 @@ router.get('', authGuard, (req, res) => {
 });
 
 router.delete('/:id', authGuard, (req, res) => {
-  console.log('req ', req.query);
     User.deleteOne({_id: req.params.id})
       .then((response) => {
         res.status(200).json(response);

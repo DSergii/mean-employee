@@ -68,7 +68,7 @@ export class UserDataService {
 
 	updateUser(user: Partial<User>, image: File): void {
 		let userData: User | FormData;
-		console.log('updateUser ->', user);
+
 		if (typeof image === 'object') {
 			userData = new FormData();
 			userData.append('id', user.id);
