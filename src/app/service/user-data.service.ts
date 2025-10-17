@@ -32,10 +32,11 @@ export class UserDataService {
 				map((data) => data.map(
 			        user => ({id: user._id, name: user.name, email: user.email, imagePath: user.imagePath})
 				))
-			).subscribe((data: User[]) => {
-				this.setUsers(data)
-			}, error => {
-				this.snackbar.showSnackbar(error.error.message)
+			).subscribe({
+				next: (data: User[]) => {
+					this.setUsers(data)
+				},
+				error: error => this.snackbar.showSnackbar(error.error.message)
 			})
 	}
 
@@ -67,24 +68,25 @@ export class UserDataService {
 
 	updateUser(user: Partial<User>, image: File): void {
 		let userData: User | FormData;
-		console.log(user);
-		// if (typeof image === 'object') {
-		userData = new FormData();
-		userData.append('id', user.id);
-		userData.append('name', user.name);
-		userData.append('email', user.email);
-		userData.append('image', image, user.name);
-		// } else {
-		// 	const { id, name, email } = user;
-		// 	userData = {
-		// 		id,
-		// 		name,
-		// 		email,
-		// 		imagePath: image
-		// 	};
-		// }
-		this.userService.updateUser(userData).subscribe((userData) => {
-		  console.log('Update user ::: ', userData);
+		console.log('updateUser ->', user);
+		if (typeof image === 'object') {
+			userData = new FormData();
+			userData.append('id', user.id);
+			userData.append('name', user.name);
+			userData.append('email', user.email);
+			userData.append('image', image, user.name);
+		} else {
+			const { id, name, email } = user;
+			userData = {
+				id,
+				name,
+				email,
+				imagePath: image
+			};
+		}
+		this.userService.updateUser(userData).subscribe({
+			next: () => {},
+			error: () => {this.snackbar.showSnackbar('Sorry, sth went wrong!')}
 		})
 	}
 }

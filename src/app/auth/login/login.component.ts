@@ -41,14 +41,16 @@ export class LoginComponent {
 
     signIn(): void {
         this.authService.login(this.loginForm.value)
-            .subscribe(result => {
-                console.log(result);
-                const cookieExpire = new Date(new Date().setHours(new Date().getHours() + 12)).toUTCString();
-                this.cookiesService.setCookie('token', result, cookieExpire);
-                this.router.navigate(['employee']);
-            }, error => {
-                this.snackbar.showSnackbar(error.error.error)
-            });
+            .subscribe({
+                next: (result => {
+                    const cookieExpire = new Date(new Date().setHours(new Date().getHours() + 12)).toUTCString();
+                    this.cookiesService.setCookie('token', result, cookieExpire);
+                    this.router.navigate(['employee']);
+                }),
+                error: (error => {
+                    this.snackbar.showSnackbar(error.error.error)
+                })
+            })
     }
 
 }

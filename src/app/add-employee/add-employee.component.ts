@@ -54,12 +54,10 @@ export class AddEmployeeComponent implements OnInit {
     public addUser(): void {
 		const user = this.userForm.getRawValue();
 		const image = this.userForm.get('image').value;
-	    console.log({...user, id: this.userId}, image)
 		if(this.userId) {
 		    this.userDataService.updateUser({...user, id: this.userId}, image);
 		    return;
 		}
-
 		this.userDataService.addUser(user, image);
 		this.imagePreview = '';
 		this.userForm.reset();
